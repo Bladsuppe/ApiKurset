@@ -8,3 +8,4 @@ npm install
 
 For å starte webserver kjør:
 node apikurset-server.js
+node apikurset-server.js
