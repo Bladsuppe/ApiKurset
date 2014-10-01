@@ -1,0 +1,10 @@
+{
+  "name": "apiKurset",
+  "description": "ApiKurset",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "connect": "latest",
+    "serve-static": "latest"
+  }
+}
