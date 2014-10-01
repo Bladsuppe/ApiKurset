@@ -39,7 +39,8 @@ samp {
     display: none;
 }
 
-img {  padding-left: 2em;
+img.weathericon {  
+    
    
 }
 
@@ -80,6 +81,7 @@ img {  padding-left: 2em;
 @-webkit-keyframes colorize {
     0% {
         -webkit-filter: grayscale(100%);
+        
     }
     100% {
         -webkit-filter: grayscale(0%);
@@ -93,4 +95,14 @@ img {  padding-left: 2em;
     100% {
         filter: grayscale(0%);
     }
+}
+
+.weatherIcons { margin-right: 1em;
+}
+
+.weather-form .pure-control-group label{
+    width:48px;
+}
+.weather-form, .weather-form .pure-control-group{
+    min-width: 700px;
 }

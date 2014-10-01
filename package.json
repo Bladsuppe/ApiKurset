@@ -6,5 +6,8 @@
   "dependencies": {
     "connect": "latest",
     "serve-static": "latest"
+  },
+  "devDependencies": {
+    "normalize.css": "^3.0.1"
   }
 }

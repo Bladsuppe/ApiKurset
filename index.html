@@ -1,11 +1,12 @@
 <!doctype html>
 <html ng-app>
-
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>GETTING STARTED WITH BRACKETS</title>
         <meta name="description" content="An interactive getting started guide for Brackets.">
+        <link rel="stylesheet" href="normalize.css">
+        <link rel="stylesheet" href="pure-min.css">
         <link rel="stylesheet" href="main1.css">
         <script type="text/javascript" src="angular.min.js"></script>
     </head>
@@ -13,28 +14,34 @@
 <body>
     <p class=intro>Choose one search field or combine search fields:</p>
     
-<form>
-    <input type="text" class=inputs name="temperature" placeholder="Temperature" ng-model="temperature">
-    <img src="http://i.stack.imgur.com/VdcV3.gif" alt="Termometer" height="30" width="15">
-     </br>
-    
-    <input type="text" class=inputs  name="weathertype" placeholder="Type of weather">
-    <img src="http://www.clipartbest.com/cliparts/aiq/o55/aiqo55GAT." alt="Termometer" height="40" width="40"> 
-    </br>
-    
-    <input type="text" class=inputs name="humidity" placeholder="Humidity">
-    <img src="http://fergusonheatingandair.com/img/drop.png" alt="Humidity" height="35" width="30">
-     </br>
-
-    <input type="text" class=inputs name="windspeed" placeholder="Wind speed">
-    <img src="http://www.solarstik.com/sites/default/files/content/wind-icon.png" alt="Wind speed" height="35" width="35">
-    </br>
-
-     <input type="text" class=inputs name="location" placeholder="Location"> 
-     <img src="https://openclipart.org/image/300px/svg_to_png/3320/barretr_Earth.png" alt="Location" height="35" width="35"> 
-     </br>
-    <p>{{temperature}}</p>
-
+<form class="pure-form pure-form-aligned weather-form">
+    <fieldset>
+        <div class="pure-control-group">
+            <label for="temperature">
+                <img src="icons/Thermometer.png" alt="Thermometer" class="weatherIcons">
+            </label>
+            <input type="text" class=inputs  id="temperature" name="temperature" placeholder="Temperature">
+        </div>
+        <div class="pure-control-group">
+            <label for="weathertype">
+                <img src="icons/weathertype.png" alt="Weathertype" class="weatherIcons"> 
+            </label>
+            <input type="text" class=inputs  id="weathertype" name="weathertype" placeholder="Type of weather">
+        </div>
+   
+        <div class="pure-control-group">
+            <img src="icons/humidity.png" alt="Humidity" class="weatherIcons">
+            <input type="text" class=inputs name="humidity" placeholder="Humidity">
+        </div>
+        <div class="pure-control-group">
+            <img src="icons/windspeed.png" alt="Wind speed" class="weatherIcons">
+            <input type="text" class=inputs name="windspeed" placeholder="Wind speed">
+        </div>
+        <div class="pure-control-group">
+             <img src="icons/earth.png" alt="Location" class="weatherIcons"> 
+             <input type="text" class=inputs name="location" placeholder="Location"> 
+        </div>
+    </fieldset>
 </form>
 
 <button type="button-large" class=button-large>Search</button>
