@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app>
+<html data-ng-app>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -14,41 +14,45 @@
 <body>
     <p class=intro>Choose one search field or combine search fields:</p>
     
-<form class="pure-form pure-form-aligned weather-form">
+<div ng-controller="formController">
+    <form novalidate class="pure-form pure-form-aligned weather-form">
     <fieldset>
+        
         <div class="pure-control-group">
-            <label for="temperature">
                 <img src="icons/Thermometer.png" alt="Thermometer" class="weatherIcons">
-            </label>
-            <input type="text" class=inputs  id="temperature" name="temperature" placeholder="Temperature">
+            <input type="search" class=inputs data-ng-model="temperature" name="temperature" placeholder="Temperature">
         </div>
+       
         <div class="pure-control-group">
-            <label for="weathertype">
                 <img src="icons/weathertype.png" alt="Weathertype" class="weatherIcons"> 
-            </label>
-            <input type="text" class=inputs  id="weathertype" name="weathertype" placeholder="Type of weather">
+            <input type="search" class=inputs data-ng-model="weathertype" name="weathertype" placeholder="Type of weather">
         </div>
    
         <div class="pure-control-group">
             <img src="icons/humidity.png" alt="Humidity" class="weatherIcons">
-            <input type="text" class=inputs name="humidity" placeholder="Humidity">
+            <input type="search" class=inputs data-ng-model="humidity" name="humidity" placeholder="Humidity">
         </div>
+        
         <div class="pure-control-group">
             <img src="icons/windspeed.png" alt="Wind speed" class="weatherIcons">
-            <input type="text" class=inputs name="windspeed" placeholder="Wind speed">
+            <input type="search" class=inputs data-ng-model="windspeed" name="windspeed" placeholder="Wind speed">
         </div>
+        
         <div class="pure-control-group">
              <img src="icons/earth.png" alt="Location" class="weatherIcons"> 
-             <input type="text" class="inputs" name="location" placeholder="Location"> 
+             <input type="search" class="inputs" data-ng-model="location" name="location" placeholder="Location"> 
         </div>
-        <div class="pure-control-group">
-            <img src="icons/kalender.jpg" alt="Kalender" class="weatherIcons">
-            <input type="date" name="period" class="inputs">
-        </div>
-    </fieldset>
-</form>
+    
+        </fieldset>
+    </form>
+</div>
 
 <button type="button-large" class=button-large>Search</button>
 
+    <script> function formController</script>
+    
 </body>
 </html>
+
+
+     
