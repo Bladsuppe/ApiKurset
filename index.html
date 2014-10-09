@@ -1,78 +1,56 @@
 <!doctype html>
-<html data-ng-app>
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>GETTING STARTED WITH BRACKETS</title>
         <meta name="description" content="An interactive getting started guide for Brackets.">
         <link rel="stylesheet" href="normalize.css">
         <link rel="stylesheet" href="pure-min.css">
         <link rel="stylesheet" href="main1.css">
+        <img src="Holidayforcast.gif" alt="Logo" align="left" height="70" width="250"/>
         <script type="text/javascript" src="angular.min.js"></script>
     </head>
-    
-<header>
-    
-    </header>
 
-<body>
-    <img src="Holidayforcast.png" alt="Logo" class="logo">
-    
+<body ng-app="">
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
     <p class=intro>Choose one search field or combine search fields:</p>
     
-<div ng-controller="formController">
-    <form novalidate class="pure-form pure-form-aligned weather-form">
+<form class="pure-form pure-form-aligned weather-form">
     <fieldset>
-        
-        <div data-ng-controller="temperatureController" class="pure-control-group">
+        <div class="pure-control-group">
+            <label for="temperature">
                 <img src="icons/Thermometer.png" alt="Thermometer" class="weatherIcons">
-            <input type="search" class=inputs data-ng-model="temperature" name="temperature" placeholder="Temperature">
+            </label>
+            <input type="text" class=inputs  id="temperature" name="temperature" placeholder="Temperature">
         </div>
-       
-        <div data-ng-controller="weathertypeController" class="pure-control-group">
+        <div class="pure-control-group">
+            <label for="weathertype">
                 <img src="icons/weathertype.png" alt="Weathertype" class="weatherIcons"> 
-            <input type="search" class=inputs data-ng-model="weathertype" name="weathertype" placeholder="Type of weather">
+            </label>
+            <input type="text" class=inputs  id="weathertype" name="weathertype" placeholder="Type of weather">
         </div>
    
         <div class="pure-control-group">
             <img src="icons/humidity.png" alt="Humidity" class="weatherIcons">
-            <input type="search" class=inputs data-ng-model="humidity" name="humidity" placeholder="Humidity">
+            <input type="text" class=inputs name="humidity" placeholder="Humidity">
         </div>
-        
         <div class="pure-control-group">
             <img src="icons/windspeed.png" alt="Wind speed" class="weatherIcons">
-            <input type="search" class=inputs data-ng-model="windspeed" name="windspeed" placeholder="Wind speed">
+            <input type="text" class=inputs name="windspeed" placeholder="Wind speed">
         </div>
-        
         <div class="pure-control-group">
              <img src="icons/earth.png" alt="Location" class="weatherIcons"> 
-             <input type="search" class="inputs" data-ng-model="location" name="location" placeholder="Location"> 
+             <input type="text" class="inputs" name="location" placeholder="Location"> 
         </div>
-    
-        </fieldset>
-    </form>
-</div>
+        <div class="pure-control-group">
+            <img src="icons/kalender.jpg" alt="Kalender" class="weatherIcons">
+            <input type="date" name="period" class="inputs">
+        </div>
+    </fieldset>
+</form>
 
 <button type="button-large" class=button-large>Search</button>
 
-     <script> 
-    var app = angular.module("myApp", []);
-    
-            app.controller("temperatureController", function($scope, $http) {
-        $http.get ("") 
-        .success(function(response) {$scope.temperature=response;}); 
-    }); 
-    
-        app.controller("weathertypeController", function($scope, $http)  {
-            var responsePromise = $http.get("")
-            responsePromise.success(function(response) {$scope.results = response;});
-            responsePromise.error (function(data, status, headers, config) { 
-                alert("Failed!");
-            });
-        });
-    </script>
 </body>
 </html>
-
-
-     
