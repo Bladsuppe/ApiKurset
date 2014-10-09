@@ -5,6 +5,7 @@ html {
     -webkit-font-smoothing: antialiased;
 }
 
+
 body {
     margin: 0 auto;
     padding: 2em 2em 4em;
@@ -106,3 +107,5 @@ img.weathericon {
 .weather-form, .weather-form .pure-control-group{
     min-width: 700px;
 }
+
+   .logo { width:  500 px; length 1500 px; }
