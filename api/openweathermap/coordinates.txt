@@ -1,0 +1,19 @@
+Europa: -28,36,44,71
+
+USA: -172,26,-47,67 
+
+
+Call current weather data for several cities
+Cities within a rectangle zone
+JSON returns the data from cities laid within definite rectangle that is specified by geographical coordinates.
+
+Example: http://api.openweathermap.org/data/2.5/find/city?bbox=12,32,15,37,10&cluster=yes
+
+Parameters:
+
+bbox bounding box [lat of the top left point, lon of the top left point, lat of the bottom right point, lon of the bottom right point, map zoom]
+callback javascript functionName
+cluster use server clustering of points. Possible values ​​are [yes, no]
+lang language [ru, en ... ]
+
+http://openweathermap.org/current#cities 
