@@ -30,6 +30,7 @@
                 <input data-ng-model="searchQuery.tempmax" type="text" class=inputs id="tempmax"
                        name="tempmax" placeholder="Max.Temp">
             </div>
+
             <div class="pure-control-group">
                 <label for="weathertype">
                     <img src="icons/weathertype.png" alt="Weathertype" class="weatherIcons">
@@ -71,7 +72,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-ng-repeat="searchResult in searchResults" data-ng-cloak="">
+            <tr data-ng-repeat="searchResult in searchResults | filter: searchparam" data-ng-cloak="">
                 <td><img data-ng-src="http://openweathermap.org/img/w/{{searchResult.weather[0].icon}}.png"/></td>
                 <td>{{searchResult.name}}</td>
                 <td>{{searchResult.main.temp}}</td>
