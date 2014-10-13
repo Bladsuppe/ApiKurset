@@ -1,57 +1,89 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="description" content="An interactive getting started guide for Brackets.">
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/pure-min.css">
-        <link rel="stylesheet" href="css/main1.css">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <img src="Images/Holidayforcast.gif" alt="Logo" align="left" height="70" width="250"/>
-        <script type="text/javascript" src="js/angular.min.js"></script>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="An interactive getting started guide for Brackets.">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/pure-min.css">
+    <link rel="stylesheet" href="css/main1.css">
+    <img src="Images/Holidayforcast.gif" alt="Logo" height="70" width="250"></head>
 
-<body ng-app="">
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p class=intro>Choose one search field or combine search fields:</p>
-    
-<form class="pure-form pure-form-aligned weather-form">
-    <fieldset>
-        <div class="pure-control-group">
-            <label for="temperature">
-                <img src="icons/Thermometer.png" alt="Thermometer" class="weatherIcons">
-            </label>
-            <input type="text" class=inputs  id="temperature" name="temperature" placeholder="Temperature">
-        </div>
-        <div class="pure-control-group">
-            <label for="weathertype">
-                <img src="icons/weathertype.png" alt="Weathertype" class="weatherIcons"> 
-            </label>
-            <input type="text" class=inputs  id="weathertype" name="weathertype" placeholder="Type of weather">
-        </div>
-   
-        <div class="pure-control-group">
-            <img src="icons/humidity.png" alt="Humidity" class="weatherIcons">
-            <input type="text" class=inputs name="humidity" placeholder="Humidity">
-        </div>
-        <div class="pure-control-group">
-            <img src="icons/windspeed.png" alt="Wind speed" class="weatherIcons">
-            <input type="text" class=inputs name="windspeed" placeholder="Wind speed">
-        </div>
-        <div class="pure-control-group">
-             <img src="icons/earth.png" alt="Location" class="weatherIcons"> 
-             <input type="text" class="inputs" name="location" placeholder="Location"> 
-        </div>
-        <div class="pure-control-group">
-            <img src="icons/kalender.jpg" alt="Kalender" class="weatherIcons">
-            <input type="date" name="period" class="inputs">
-        </div>
-    </fieldset>
-</form>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+<script type="text/javascript" src="js/Holidayforcast_controllers.js"></script>
 
-<button type="button-large" class=button-large>Search</button>
+</head>
 
+<body data-ng-app="weatherApp">
+
+<p class="intro">Choose one search field or combine search fields:</p>
+
+<div data-ng-controller="weatherController">
+    <form class="pure-form pure-form-aligned weather-form">
+        <fieldset>
+            <div class="pure-control-group">
+                <label for="tempmin">
+                    <img src="icons/Thermometer.png" alt="Thermometer" class="weatherIcons">
+                </label>
+                <input data-ng-model="searchQuery.tempmin" type="text" class=inputs id="tempmin"
+                       name="tempmin" placeholder="Min.Temp">
+                <input data-ng-model="searchQuery.tempmax" type="text" class=inputs id="tempmax"
+                       name="tempmax" placeholder="Max.Temp">
+            </div>
+            <div class="pure-control-group">
+                <label for="weathertype">
+                    <img src="icons/weathertype.png" alt="Weathertype" class="weatherIcons">
+                </label>
+                <input type="text" class=inputs id="weathertype" name="weathertype" placeholder="Type of weather">
+            </div>
+
+            <div class="pure-control-group">
+                <img src="icons/humidity.png" alt="Humidity" class="weatherIcons">
+                <input type="text" class=inputs name="humidity" placeholder="Humidity">
+            </div>
+            <div class="pure-control-group">
+                <img src="icons/windspeed.png" alt="Wind speed" class="weatherIcons">
+                <input ng-model="windspeed" type="text" class="inputs" name="windspeed" placeholder="Wind speed">
+            </div>
+            <div class="pure-control-group">
+                <img src="icons/earth.png" alt="Location" class="weatherIcons">
+                <select required="true" data-ng-model="searchQuery.location" class="inputs" name="location" placeholder="Location">
+                    <option name="europe" value="europe">Europe</option>
+                    <option name="usa" value="usa">USA</option>
+                </select>
+            </div>
+        </fieldset>
+        <button data-ng-click="search(searchQuery)" type="button-large" class=button-large>Search</button>
+    </form>
+    <section id="searchResults">
+        <div class="no-results" data-ng-hide="searchResults.length">No results</div>
+        <table class="pure-table">
+            <thead>
+            <tr>
+                <th></th>
+                <th>City</th>
+                <th>Temp.</th>
+                <th>Temp. (min)</th>
+                <th>Temp. (max)</th>
+                <th>Weather</th>
+                <th>Humidity</th>
+                <th>Wind speed</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="searchResult in searchResults" data-ng-cloak="">
+                <td><img data-ng-src="http://openweathermap.org/img/w/{{searchResult.weather[0].icon}}.png"/></td>
+                <td>{{searchResult.name}}</td>
+                <td>{{searchResult.main.temp}}</td>
+                <td>{{searchResult.main.temp_min}}</td>
+                <td>{{searchResult.main.temp_max}}</td>
+                <td>{{searchResult.weather[0].main}}</td>
+                <td>{{searchResult.main.humidity}}</td>
+                <td>{{searchResult.wind.speed}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</div>
 </body>
 </html>
