@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    </head>
+    
+    <body ng-app="myApp">       
+        <p>The Vær api controller</p>
+        <div ng-controller="secondController"> 
+            <ul>
+                <li ng-repeat="x in results">
+                    {{ x }}
+                </li>
+            </ul>
+        </div>
+        
+    </body>
+    
+    <script>
+        var app = angular.module('myApp', [])
+        
+    
+        app.controller('secondController', function($scope, $http) {
+            var responsePromise =   $http.get("http://api.openweathermap.org/data/2.5/forecast/daily?lat=35&lon=139&cnt=10&mode=json")
+            responsePromise.success(function(response) {$scope.results = response;});
+            responsePromise.error(function(data, status, headers, config) {
+                alert("Failed!");
+        });
+        });
+    </script>
+</html>
