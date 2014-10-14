@@ -9,29 +9,37 @@
     <link rel="stylesheet" href="css/main1.css">
     <img src="Images/Holidayforcast.gif" alt="Logo" height="70" width="250"></head>
 
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css"/>
 <script type="text/javascript" src="js/Holidayforcast_controllers.js"></script>
+<script type="text/javascript" src="js/ApiKurset_jquery.js"></script>
 
 </head>
 
 <body data-ng-app="weatherApp">
+
+<p class="intro">Select region</p>
 
 <div data-ng-controller="weatherController">
     <form class="pure-form pure-form-aligned weather-form">
         <fieldset>
             <div class="pure-control-group">
                 <img src="icons/earth.png" alt="Location" class="weatherIcons">
-                <select required="true" data-ng-model="searchQuery.location" class="inputs" name="location" placeholder="Location" data-ng-change="search(searchQuery)">
+                <select data-ng-change="search(searchQuery)" required="true" data-ng-model="searchQuery.location"
+                        class="inputs" name="location">
+                    <option value="">Region</option>
                     <option name="europe" value="europe">Europe</option>
                     <option name="usa" value="usa">USA</option>
                 </select>
             </div>
-            </fieldset>
+        </fieldset>
         <fieldset data-ng-hide="!searchResults.length">
-
             <div class="pure-control-group">
                 <img src="icons/weathertype.png" alt="Weathertype" class="weatherIcons">
-                <select required="false" data-ng-model="searchFilter.weather[0].main" class="inputs" name="weathertype" placeholder="Type of weather" data-ng-change="search(searchQuery)">
+                <select required="false" data-ng-model="searchFilter.weather[0].main" class="inputs" name="weathertype" data-ng-change="search(searchQuery)">
+                    <option value="">Weather</option>
                     <option name="clouds" value="clouds">Clouds</option>
                     <option name="clear" value="clear">Clear</option>
                     <option name="rain" value="rain">Rain</option>
@@ -41,44 +49,58 @@
                 </select>
 
 
-            <div class="pure-control-group">
+            <!--<div class="pure-control-group">
                 <label for="tempmin">
                     <img src="icons/Thermometer.png" alt="Thermometer" class="weatherIcons">
                 </label>
-                <input data-ng-model="searchQuery.tempmin" type="text" class=inputs id="tempmin"
-                       name="tempmin" placeholder="Min.Temp">
-                <input data-ng-model="searchQuery.tempmax" type="text" class=inputs id="tempmax"
-                       name="tempmax" placeholder="Max.Temp">
+                <input data-ng-model="searchFilter.main.temp_min" type="text" class=inputs id="tempmin"
+                       name="tempmin" placeholder="Min.Temperature">
+                <input data-ng-model="searchFilter.main.temp_max" type="text" class=inputs id="tempmax"
+                       name="tempmax" placeholder="Max.Temperature">
+            </div>-->
+            <!--<p>
+                <label for="temprange">Temperature range:</label>
+                <input type="text" id="temprange" readonly>
+            </p>
+            <div id="tempslider" role="tabpanel" aria-hidden="false" aria-expanded="false" aria-labelledby="slider-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom"></div>
+            <div class="pure-control-group">
+                <label for="weathertype">
+                    <img src="icons/weathertype.png" alt="Weathertype" class="weatherIcons">
+                </label>
+                <input data-ng-model="searchFilter.weather[0].main" type="text" class=inputs id="weathertype"
+                       name="weathertype" placeholder="Type of weather">
             </div>
 
             <div class="pure-control-group">
                 <img src="icons/humidity.png" alt="Humidity" class="weatherIcons">
-                <input data-ng-model="searchFilter.main.humidity" type="text" class=inputs name="humidity" placeholder="Humidity">
+                <input data-ng-model="searchFilter.main.humidity" type="text" class=inputs name="humidity"
+                       placeholder="Humidity">
             </div>
             <div class="pure-control-group">
                 <img src="icons/windspeed.png" alt="Wind speed" class="weatherIcons">
-                <input data-ng-model="searchFilter.wind.speed" type="text" class="inputs" name="windspeed" placeholder="Wind speed">
+                <input data-ng-model="searchFilter.wind.speed" type="text" class="inputs" name="windspeed"
+                       placeholder="Wind speed">
             </div>
-        </fieldset>
+        </fieldset>-->
         <!--<button data-ng-click="search(searchQuery)" type="button-large" class=button-large>Search</button>-->
     </form>
     <section id="searchResults">
-        <div class="no-results" data-ng-hide="searchResults.length">No results</div>
+        <p class="no-results" data-ng-hide="searchResults.length">No results</p>
         <table class="pure-table pure-table-bordered" data-ng-hide="!searchResults.length">
             <thead>
             <tr>
                 <th></th>
                 <th>City</th>
-                <th>Temp.</th>
-                <th>Temp. (min)</th>
-                <th>Temp. (max)</th>
+                <th>Temp</th>
+                <th>(min)</th>
+                <th>(max)</th>
                 <th>Weather</th>
                 <th>Humidity</th>
-                <th>Wind speed</th>
+                <th>Wind</th>
             </tr>
             </thead>
             <tbody>
-            <tr data-ng-repeat="searchResult in searchResults | filter:searchFilter" data-ng-cloak="">
+            <tr data-ng-repeat="searchResult in searchResults | filter:searchFilter | orderBy:'name'">
                 <td><img data-ng-src="http://openweathermap.org/img/w/{{searchResult.weather[0].icon}}.png"/></td>
                 <td>{{searchResult.name}}</td>
                 <td>{{searchResult.main.temp}}</td>
