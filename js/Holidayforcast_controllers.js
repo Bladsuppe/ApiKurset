@@ -14,16 +14,16 @@ weatherApp.controller('weatherController', ['$scope', '$http', function ($scope,
         $scope.searchCoords = '';
         $scope.searchResultJson = ''
 
-
         $scope.searchResults = [];
 
         $scope.apiForcastBaseUrl ="http://api.openweathermap.org/data/2.5/forecast/daily?lat=35&lon=139&cnt=10&mode=json"
         $scope.apiForcastUrl ="";
 
-//        $scope.forcastSearchCoords = '';
+        $scope.testCity = "id":1851632
+
         $scope.searchResultForcastJson = '';
 
-        $scope.ForcastsearchResults = [];
+        $scope.forcastSearchResult = [];
 
         $scope.search = function(searchQuery) {
 
@@ -67,7 +67,7 @@ weatherApp.controller('weatherController', ['$scope', '$http', function ($scope,
                              <!--console.log("Result from api: " + $scope.searchResultForcastJson);-->
                              var len = $scope.searchResultForcastJson.cnt;
                              while (len--){
-                                 $scope.ForcastsearchResults.push($scope.searchResultForcastJson.list[len]);
+                                 $scope.forcastSearchResult.push($scope.searchResultForcastJson.list[len]);
                                  <!--console.log($scope.searchResultForcastJson.list[len]);-->
                              }
                          });

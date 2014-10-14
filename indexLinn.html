@@ -110,6 +110,36 @@
             </tbody>
         </table>
     </section>
+
+    <section id="forcastSearchResult">
+        <p class="no-results" data-ng-hide="forcastSearchResult.length">No results</p>
+        <table class="pure-table pure-table-bordered" data-ng-hide="!forcastSearchResult.length">
+            <thead>
+            <tr>
+                <th></th>
+                <th>City</th>
+                <th>Temp</th>
+                <th>(min)</th>
+                <th>(max)</th>
+                <th>Weather</th>
+                <th>Humidity</th>
+                <th>Wind</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="forcastSearchResult in forcastSearchResults | filter:searchFilter | orderBy:'name'">
+                <td><img data-ng-src="http://openweathermap.org/img/w/{{searchResult.weather[0].icon}}.png"/></td>
+                <td>{{forcastSearchResult.name}}</td>
+                <td>{{forcastSearchResult.main.temp}}</td>
+                <td>{{forcastSearchResult.main.temp_min}}</td>
+                <td>{{forcastSearchResult.main.temp_max}}</td>
+                <td>{{forcastSearchResult.weather[0].main}}</td>
+                <td>{{forcastSearchResult.main.humidity}}</td>
+                <td>{{forcastSearchResult.wind.speed}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
 </div>
 </body>
 </html>
