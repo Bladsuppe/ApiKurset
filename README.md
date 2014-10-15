@@ -5,9 +5,7 @@ Linn og Mauds repo for API course at HIOA autumn 2014.
 
 # bower-angular
 
-This repo is for distribution on `bower`. The source for this module is in the
-[main AngularJS repo](https://github.com/angular/angular.js).
-Please file issues and pull requests against that repo.
+This repo is built with `bower` and `node`. 
 
 ## Install
 
@@ -17,7 +15,7 @@ Install `node` dependencies:
 npm install
 ```
 
-Install with `bower`:
+Install `bower` dependencies:
 
 ```shell
 bower install
@@ -25,7 +23,7 @@ bower install
 
 ## Run
 
-To start webserver with node:
+Start webserver with node:
 
 ```shell
 node js/apikurset-server.js
