@@ -53,6 +53,7 @@ weatherApp.controller('weatherController', ['$scope', '$http', function ($scope,
             }
         }
 
+        //This function gets the forecast from the api
         $scope.getForecast = function(searchResult, index){
             console.log("Show weather forecast for " + searchResult.name + " (index="+index+")");
             $scope.apiUrl = $scope.apiForcastBaseUrl + searchResult.id;
@@ -69,20 +70,20 @@ weatherApp.controller('weatherController', ['$scope', '$http', function ($scope,
                 });
         }
 
+       //This function hides the forecast
         $scope.hideForecast = function(searchResult){
             searchResult.showForecast = false;
         }
 
+        //This function shows the forecast
         $scope.showForecast = function(data,searchResult,index){
             console.log("Adding forecast for " + searchResult.name + "("+searchResult.id+")");
             console.log(data);
             searchResult.forecast=data;
             searchResult.showForecast=true;
-            /*$scope.searchResults[index].forecast = data;
-            $scope.searchResults[index].showForecast = true;*/
         }
 
-        //Search function the fetches results from api or cache
+        //Search function that fetches results from api or cache
         $scope.search = function(searchQuery) {
 
             //Check if location is in the apiLocationCache
@@ -112,7 +113,7 @@ weatherApp.controller('weatherController', ['$scope', '$http', function ($scope,
 
             if ($scope.cachedResults!=null){
                 console.log("Get searchResults from cache.");
-                <!--Render the view-->
+                //Render the view
                 $scope.renderView();
             }
         };
