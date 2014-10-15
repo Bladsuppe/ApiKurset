@@ -21,21 +21,21 @@ weatherApp.controller('weatherController', ['$scope', '$http', function ($scope,
         $scope.apiForcastBaseUrl ="http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&cnt=14&id=";
         $scope.apiUrl = "";
 
-        <!--Object that stores bounding-box coordinates for locations-->
+        //Object that stores bounding-box coordinates for locations
         $scope.coordinates = {
             'europe':'-24,36,43,72',
             'usa':'-169,12,-52,70'
         }
-        <!--Initialize empty apiCache to store json results from api-->
+        //Initialize empty apiCache to store json results from api
         $scope.apiLocationCache = {};
 
-        <!--This is used to hold the cached results for one search-->
+        //This is used to hold the cached results for one search
         $scope.cachedResults;
 
-        <!--This is iterated in the searchResults table in the view-->
+        //This is iterated in the searchResults table in the view
         $scope.searchResults = [];
 
-        <!--This function iterates the cachedResults and pushes the entries to the searchResults table-->
+        //This function iterates the cachedResults and pushes the entries to the searchResults table
         $scope.renderView = function(){
             $scope.searchResults = [];
             if ($scope.cachedResults!=null){
@@ -82,10 +82,10 @@ weatherApp.controller('weatherController', ['$scope', '$http', function ($scope,
             $scope.searchResults[index].showForecast = true;*/
         }
 
-        <!--Search function the fetches results from api or cache-->
+        //Search function the fetches results from api or cache
         $scope.search = function(searchQuery) {
 
-            <!--Check if location is in the apiLocationCache-->
+            //Check if location is in the apiLocationCache
             $scope.cachedResults = $scope.apiLocationCache[searchQuery.location];
 
             if ($scope.cachedResults == null && $scope.coordinates[searchQuery.location]!=null){
@@ -98,10 +98,10 @@ weatherApp.controller('weatherController', ['$scope', '$http', function ($scope,
                         console.log('Cacheing results..');
                         $scope.cachedResults = data;
 
-                        <!--Put location in the apiLocationCache-->
+                        //Put location in the apiLocationCache
                         $scope.apiLocationCache[searchQuery.location] = $scope.cachedResults;
 
-                        <!--Render the view-->
+                        //Render the view
                         $scope.renderView();
                     })
                     .error(function(data, status, headers, config) {
