@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/pure-min.css">
     <link rel="stylesheet" href="css/main1.css">
+    <link rel="stylesheet" href="css/spinner.css">
 
     <img src="Images/Holidayforcast.gif" alt="Logo" height="70" width="250"></head>
 
@@ -16,13 +17,18 @@
 
 <!--    Fetching the controllers in the Holidayforcastcontroller file -->
 <script type="text/javascript" src="js/Holidayforcast_controllers.js"></script>
-<script type="text/javascript" src="js/ApiKurset_jquery.js"></script>
+<script type="text/javascript" src="js/console-monkey-patch.js"></script>
 
 </head>
 <!-- Initializes the application-->
 <body data-ng-app="weatherApp">
 <!-- defines the app's controller-->
 <div class="weatherController" data-ng-controller="weatherController">
+    <div class="spinner" data-ng-show="loading">
+        <div class="cube1"></div>
+        <div class="spinnerText">API loading</div>
+        <div class="cube2"></div>
+    </div>
     <form class="pure-form pure-form-aligned weather-form">
         <fieldset>
             <div class="pure-control-group">
@@ -35,12 +41,12 @@
                     <option name="usa" value="usa">USA</option>
                 </select>
             </div>
-            <!-- weathertype filter-->
+            <!-- Weathertype filter-->
             <div class="pure-control-group" data-ng-hide="!searchResults.length">
                 <img src="icons/weathertype.png" alt="Weathertype" class="weatherIcons">
                <!--<select required="false" data-ng-model="searchFilter.weather[0].main" class="inputs" name="weathertype">-->
                 <select required="false" data-ng-model="weathertype" class="inputs" name="weathertype">
-                    <option value="">Weather</option>
+                    <option value="">Favourite weather</option>
                     <option name="clouds" value="Clouds">Clouds</option>
                     <option name="clear" value="Clear">Clear</option>
                     <option name="rain" value="Rain">Rain</option>
@@ -51,7 +57,7 @@
             </div>
         </fieldset>
 
-    <!-- Setting up the result view for Forscast-->
+    <!-- Setting up the result view for Forcast-->
     <section class="searchResults">
         <table class="pure-table pure-table-bordered weatherTable" data-ng-hide="!searchResults.length">
             <thead>
@@ -65,15 +71,14 @@
             </thead>
             <!-- Printing the results -->
             <tbody>
-                <tr class="searchResultRow" data-ng-repeat="searchResult in searchResults | weatherFilter:weathertype">
-                    <!--<tr class="city{{$index}}" data-ng-repeat="searchResult in searchResults | filter:searchFilter | orderBy:'name'">-->
+                <tr class="searchResultRow" data-ng-repeat="searchResult in searchResults | weatherFilter:weathertype | orderBy:'name'">
                     <td>
                         {{searchResult.name}}
                         <div class="toggleForecast" data-ng-if="!searchResult.showForecast">
-                            today | <a data-ng-click="getForecast(searchResult, $index)">14 days</a>
+                            today | <a data-ng-click="getForecast(searchResult, $index)">+14 days</a>
                         </div>
                         <div class="toggleForecast" data-ng-if="searchResult.showForecast">
-                            <a data-ng-click="hideForecast(searchResult)">today</a> | 14 days
+                            <a data-ng-click="hideForecast(searchResult)">today</a> | +14 days
                         </div>
                     </td>
                     <td data-ng-if="!searchResult.showForecast">
@@ -93,16 +98,6 @@
                             </tr>
                         </table>
                     </td>
-                    <!--<td colspan="100%" class="forecast" data-ng-if="searchResult.city.name!=null">
-                        <table>
-                            <tr>
-                                <td data-ng-repeat="forecast in searchResult.list">
-                                    <img class="forecastIcon" data-ng-src="http://openweathermap.org/img/w/{{forecast.weather[0].icon}}.png"/>
-                                    <div class="forecastTemp">{{forecast.temp.day | number:0}}&deg;</div>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>-->
                 </tr>
             </tbody>
         </table>

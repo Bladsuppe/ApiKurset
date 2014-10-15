@@ -15,6 +15,8 @@ weatherApp.filter('weatherFilter',function(){
 
 weatherApp.controller('weatherController', ['$scope', '$http', function ($scope, $http) {
 
+        $scope.loading=false;
+
         $scope.apiBBoxBaseUrl = "http://api.openweathermap.org/data/2.5/box/city?cluster=yes&bbox=";
         $scope.apiForcastBaseUrl ="http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&cnt=14&id=";
         $scope.apiUrl = "";
@@ -55,12 +57,14 @@ weatherApp.controller('weatherController', ['$scope', '$http', function ($scope,
             console.log("Show weather forecast for " + searchResult.name + " (index="+index+")");
             $scope.apiUrl = $scope.apiForcastBaseUrl + searchResult.id;
             console.log("Calling " + $scope.apiUrl);
-
+            $scope.loading=true;
             responsePromise = $http.get($scope.apiUrl)
                 .success(function(data, status, headers, config) {
+                    $scope.loading=false;
                     $scope.showForecast(data, searchResult, index);
                 })
                 .error(function(data, status, headers, config) {
+                    $scope.loading=false;
                     console.log("Error while getting forecast for " + searchResult.name);
                 });
         }
@@ -87,8 +91,10 @@ weatherApp.controller('weatherController', ['$scope', '$http', function ($scope,
             if ($scope.cachedResults == null && $scope.coordinates[searchQuery.location]!=null){
                 $scope.apiUrl = $scope.apiBBoxBaseUrl + $scope.coordinates[searchQuery.location];
                 console.log("Call api " + $scope.apiUrl);
+                $scope.loading=true;
                 responsePromise = $http.get($scope.apiUrl)
                     .success(function(data, status, headers, config) {
+                        $scope.loading=false;
                         console.log('Cacheing results..');
                         $scope.cachedResults = data;
 
@@ -99,6 +105,7 @@ weatherApp.controller('weatherController', ['$scope', '$http', function ($scope,
                         $scope.renderView();
                     })
                     .error(function(data, status, headers, config) {
+                        $scope.loading=false;
                         alert("Calling API failed! " + status);
                     });
             }
