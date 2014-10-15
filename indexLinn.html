@@ -14,9 +14,6 @@
 <!--    Fetching angular locally-->
 <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 
-<!--    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
-        <link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css"/>-->
 <!--    Fetching the controllers in the Holidayforcastcontroller file -->
 <script type="text/javascript" src="js/Holidayforcast_controllers.js"></script>
 <script type="text/javascript" src="js/ApiKurset_jquery.js"></script>
@@ -25,7 +22,7 @@
 <!-- Initializes the application-->
 <body data-ng-app="weatherApp">
 <!-- defines the app's controller-->
-<div data-ng-controller="weatherController">
+<div class="weatherController" data-ng-controller="weatherController">
     <form class="pure-form pure-form-aligned weather-form">
         <fieldset>
             <div class="pure-control-group">
@@ -41,114 +38,75 @@
             <!-- weathertype filter-->
             <div class="pure-control-group" data-ng-hide="!searchResults.length">
                 <img src="icons/weathertype.png" alt="Weathertype" class="weatherIcons">
-                <select required="false" data-ng-model="searchFilter.weather[0].main" class="inputs" name="weathertype"
-                        data-ng-change="search(searchQuery)">
+               <!--<select required="false" data-ng-model="searchFilter.weather[0].main" class="inputs" name="weathertype">-->
+                <select required="false" data-ng-model="weathertype" class="inputs" name="weathertype">
                     <option value="">Weather</option>
-                    <option name="clouds" value="clouds">Clouds</option>
-                    <option name="clear" value="clear">Clear</option>
-                    <option name="rain" value="rain">Rain</option>
-                    <option name="mist" value="mist">Mist</option>
-                    <option name="fog" value="fog">Fog</option>
-                    <option name="haze" value="haze">Haze</option>
+                    <option name="clouds" value="Clouds">Clouds</option>
+                    <option name="clear" value="Clear">Clear</option>
+                    <option name="rain" value="Rain">Rain</option>
+                    <option name="mist" value="Mist">Mist</option>
+                    <option name="fog" value="Fog">Fog</option>
+                    <option name="haze" value="Haze">Haze</option>
                 </select>
             </div>
         </fieldset>
 
-
-        <!--<div class="pure-control-group">
-            <label for="tempmin">
-                <img src="icons/Thermometer.png" alt="Thermometer" class="weatherIcons">
-            </label>
-            <input data-ng-model="searchFilter.main.temp_min" type="text" class=inputs id="tempmin"
-                   name="tempmin" placeholder="Min.Temperature">
-            <input data-ng-model="searchFilter.main.temp_max" type="text" class=inputs id="tempmax"
-                   name="tempmax" placeholder="Max.Temperature">
-        </div>-->
-        <!--<p>
-            <label for="temprange">Temperature range:</label>
-            <input type="text" id="temprange" readonly>
-        </p>
-        <div id="tempslider" role="tabpanel" aria-hidden="false" aria-expanded="false" aria-labelledby="slider-tab" class="ui-tabs-panel ui-widget-content ui-corner-bottom"></div>
-        <div class="pure-control-group">
-            <label for="weathertype">
-                <img src="icons/weathertype.png" alt="Weathertype" class="weatherIcons">
-            </label>
-            <input data-ng-model="searchFilter.weather[0].main" type="text" class=inputs id="weathertype"
-                   name="weathertype" placeholder="Type of weather">
-        </div>
-
-        <div class="pure-control-group">
-            <img src="icons/humidity.png" alt="Humidity" class="weatherIcons">
-            <input data-ng-model="searchFilter.main.humidity" type="text" class=inputs name="humidity"
-                   placeholder="Humidity">
-        </div>
-        <div class="pure-control-group">
-            <img src="icons/windspeed.png" alt="Wind speed" class="weatherIcons">
-            <input data-ng-model="searchFilter.wind.speed" type="text" class="inputs" name="windspeed"
-                   placeholder="Wind speed">
-        </div>
-    </fieldset>-->
-        <!--<button data-ng-click="search(searchQuery)" type="button-large" class=button-large>Search</button>-->
-    </form>
     <!-- Setting up the result view for Forscast-->
-    <section id="searchResults">
-        <table class="pure-table pure-table-bordered" data-ng-hide="!searchResults.length">
+    <section class="searchResults">
+        <table class="pure-table pure-table-bordered weatherTable" data-ng-hide="!searchResults.length">
             <thead>
             <tr>
-                <th></th>
                 <th>City</th>
-                <th>Temp</th>
-                <th>(min)</th>
-                <th>(max)</th>
-                <th>Weather</th>
+                <th>Forecast</th>
+                <th>Temp (min-max)</th>
                 <th>Humidity</th>
                 <th>Wind</th>
             </tr>
             </thead>
             <!-- Printing the results -->
             <tbody>
-            <tr data-ng-repeat="searchResult in searchResults | filter:searchFilter | orderBy:'name'">
-                <td><img data-ng-src="http://openweathermap.org/img/w/{{searchResult.weather[0].icon}}.png"/></td>
-                <td>{{searchResult.name}}</td>
-                <td>{{searchResult.main.temp}}</td>
-                <td>{{searchResult.main.temp_min}}</td>
-                <td>{{searchResult.main.temp_max}}</td>
-                <td>{{searchResult.weather[0].main}}</td>
-                <td>{{searchResult.main.humidity}}</td>
-                <td>{{searchResult.wind.speed}}</td>
-            </tr>
+                <tr class="searchResultRow" data-ng-repeat="searchResult in searchResults | weatherFilter:weathertype">
+                    <!--<tr class="city{{$index}}" data-ng-repeat="searchResult in searchResults | filter:searchFilter | orderBy:'name'">-->
+                    <td>
+                        {{searchResult.name}}
+                        <div class="toggleForecast" data-ng-if="!searchResult.showForecast">
+                            today | <a data-ng-click="getForecast(searchResult, $index)">14 days</a>
+                        </div>
+                        <div class="toggleForecast" data-ng-if="searchResult.showForecast">
+                            <a data-ng-click="hideForecast(searchResult)">today</a> | 14 days
+                        </div>
+                    </td>
+                    <td data-ng-if="!searchResult.showForecast">
+                        <img data-ng-src="http://openweathermap.org/img/w/{{searchResult.weather[0].icon}}.png"/>
+                        <div>{{searchResult.weather[0].main}}</div>
+                    </td>
+                    <td data-ng-if="!searchResult.showForecast">{{searchResult.main.temp_min | number:0}} - {{searchResult.main.temp_max | number:0}}&deg;</td>
+                    <td data-ng-if="!searchResult.showForecast">{{searchResult.main.humidity | number:0}}%</td>
+                    <td data-ng-if="!searchResult.showForecast">{{searchResult.wind.speed | number:0}}mps</td>
+                    <td data-ng-if="searchResult.showForecast" colspan="100%" class="longForecast" data-ng-if="searchResult.forecast.list!=null">
+                        <table>
+                            <tr>
+                                <td class="dayForecast" data-ng-repeat="aforecast in searchResult.forecast.list">
+                                    <img class="forecastIcon" data-ng-src="http://openweathermap.org/img/w/{{aforecast.weather[0].icon}}.png"/>
+                                    <div class="forecastTemp">{{aforecast.temp.day | number:0}}&deg;</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <!--<td colspan="100%" class="forecast" data-ng-if="searchResult.city.name!=null">
+                        <table>
+                            <tr>
+                                <td data-ng-repeat="forecast in searchResult.list">
+                                    <img class="forecastIcon" data-ng-src="http://openweathermap.org/img/w/{{forecast.weather[0].icon}}.png"/>
+                                    <div class="forecastTemp">{{forecast.temp.day | number:0}}&deg;</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>-->
+                </tr>
             </tbody>
         </table>
     </section>
-    <!-- Setting up the result view for Forscast
-    <section id="forcastSearchResult">
-        <table class="pure-table pure-table-bordered" data-ng-hide="!forcastSearchResult.length">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>City</th>
-                    <th>Temp</th>
-                    <th>(min)</th>
-                    <th>(max)</th>
-                    <th>Weather</th>
-                    <th>Humidity</th>
-                    <th>Wind</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr data-ng-repeat="forcastSearchResult in forcastSearchResults | filter:searchFilter | orderBy:'name'">
-                    <td><img data-ng-src="http://openweathermap.org/img/w/{{searchResult.weather[0].icon}}.png"/></td>
-                    <td>{{forcastSearchResult.name}}</td>
-                    <td>{{forcastSearchResult.main.temp}}</td>
-                    <td>{{forcastSearchResult.main.temp_min}}</td>
-                    <td>{{forcastSearchResult.main.temp_max}}</td>
-                    <td>{{forcastSearchResult.weather[0].main}}</td>
-                    <td>{{forcastSearchResult.main.humidity}}</td>
-                    <td>{{forcastSearchResult.wind.speed}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>-->
 </div>
 </body>
 </html>

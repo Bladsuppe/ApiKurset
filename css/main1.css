@@ -9,7 +9,7 @@ html {
 body {
     margin: 0 auto;
     padding: 2em 2em 4em;
-    max-width: 800px;
+    max-width: 900px;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5em;
@@ -98,14 +98,47 @@ img.weathericon {
     }
 }
 
-.weatherIcons { margin-right: 1em;
+.weatherController .weatherIcons {
+    margin-right: 1em;
 }
 
-.weather-form .pure-control-group label{
+.weatherController .weather-form .pure-control-group label{
     width:48px;
 }
-.weather-form, .weather-form .pure-control-group{
+.weatherController .weather-form, .weather-form .pure-control-group{
     min-width: 700px;
 }
 
-.logo { width: 500px; length:1500 px; }
+.weatherController .searchResults .toggleForecast{
+    cursor:pointer;
+}
+.weatherController .searchResults .longForecast{
+    padding:0;
+    margin:0;
+}
+.weatherController .searchResults .longForecast .dayForecast{
+    padding:0;
+    margin:0;
+}
+.weatherController .searchResults .longForecast .forecastIcon{
+    padding:0;
+    margin:0;
+}
+.weatherController .searchResults .longForecast .forecastTemp{
+    padding:0;
+    margin:0;
+    text-align: center;
+}
+
+.weatherTable{
+    border-collapse: initial;
+}
+.weatherTable .toggleForecast{
+    font-size: smaller;
+}
+.weatherTable .searchResultRow td{
+    padding:0;
+    margin:0;
+    text-align:center;
+}
+ .logo { width: 500px; length:1500 px; }
