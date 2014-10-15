@@ -26,7 +26,7 @@ bower install
 Start webserver with node:
 
 ```shell
-node js/apikurset-server.js
+node apikurset-server.js
 ```
 
 ## License

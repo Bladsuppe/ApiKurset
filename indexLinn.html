@@ -1,107 +1,114 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <!--    fetching the css libraries-->
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/pure-min.css">
-    <link rel="stylesheet" href="css/main1.css">
-    <link rel="stylesheet" href="css/spinner.css">
+        <!--    fetching the css libraries-->
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/pure-min.css">
+        <link rel="stylesheet" href="css/main1.css">
+        <link rel="stylesheet" href="css/spinner.css">
 
-    <img src="Images/Holidayforcast.gif" alt="Logo" height="70" width="250"></head>
+        <img src="Images/Holidayforcast.gif" alt="Logo" height="70" width="250"></head>
 
-<!--    Fetching angular locally-->
-<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <!--    Fetching angular locally-->
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 
-<!--    Fetching the controllers in the Holidayforcastcontroller file -->
-<script type="text/javascript" src="js/Holidayforcast_controllers.js"></script>
-<script type="text/javascript" src="js/console-monkey-patch.js"></script>
+    <!--    Fetching the controllers in the Holidayforcastcontroller file -->
+    <script type="text/javascript" src="js/Holidayforcast_controllers.js"></script>
+    <script type="text/javascript" src="js/console-monkey-patch.js"></script>
 
-</head>
-<!-- Initializes the application-->
-<body data-ng-app="weatherApp">
-<!-- defines the app's controller-->
-<div class="weatherController" data-ng-controller="weatherController">
-    <div class="spinner" data-ng-show="loading">
-        <div class="cube1"></div>
-        <div class="spinnerText">API loading</div>
-        <div class="cube2"></div>
-    </div>
-    <form class="pure-form pure-form-aligned weather-form">
-        <fieldset>
-            <div class="pure-control-group">
-                <img src="icons/earth.png" alt="Location" class="weatherIcons">
-                <!-- Location search-->
-                <select data-ng-change="search(searchQuery)" required="true" data-ng-model="searchQuery.location"
-                        class="inputs" name="location">
-                    <option value="">Region</option>
-                    <option name="europe" value="europe">Europe</option>
-                    <option name="usa" value="usa">USA</option>
-                </select>
+    </head>
+    <!-- Initializes the application-->
+    <body data-ng-app="weatherApp">
+        <!-- defines the app's controller-->
+        <div class="weatherController" data-ng-controller="weatherController">
+            <div class="spinner" data-ng-show="loading">
+                <div class="cube1"></div>
+                <div class="spinnerText">API loading</div>
+                <div class="cube2"></div>
             </div>
-            <!-- Weathertype filter-->
-            <div class="pure-control-group" data-ng-hide="!searchResults.length">
-                <img src="icons/weathertype.png" alt="Weathertype" class="weatherIcons">
-               <!--<select required="false" data-ng-model="searchFilter.weather[0].main" class="inputs" name="weathertype">-->
-                <select required="false" data-ng-model="weathertype" class="inputs" name="weathertype">
-                    <option value="">Favourite weather</option>
-                    <option name="clouds" value="Clouds">Clouds</option>
-                    <option name="clear" value="Clear">Clear</option>
-                    <option name="rain" value="Rain">Rain</option>
-                    <option name="mist" value="Mist">Mist</option>
-                    <option name="fog" value="Fog">Fog</option>
-                    <option name="haze" value="Haze">Haze</option>
-                </select>
-            </div>
-        </fieldset>
+            <form class="pure-form pure-form-aligned weather-form">
+                <fieldset>
+                    <div class="pure-control-group">
+                        <img src="icons/earth.png" alt="Location" class="weatherIcons">
+                        <!-- Location search-->
+                        <select data-ng-change="search(searchQuery)" required="true" data-ng-model="searchQuery.location"
+                                class="inputs" name="location">
+                            <option value="">Region</option>
+                            <option name="europe" value="europe">Europe</option>
+                            <option name="usa" value="usa">USA</option>
+                        </select>
+                    </div>
+                    <!-- Weathertype filter-->
+                    <div class="pure-control-group" data-ng-hide="!searchResults.length">
+                        <img src="icons/weathertype.png" alt="Weathertype" class="weatherIcons">
+                        <!--<select required="false" data-ng-model="searchFilter.weather[0].main" class="inputs" name="weathertype">-->
+                        <select required="false" data-ng-model="weathertype" class="inputs" name="weathertype">
+                            <option value="">Favourite weather</option>
+                            <option name="clouds" value="Clouds">Clouds</option>
+                            <option name="clear" value="Clear">Clear</option>
+                            <option name="rain" value="Rain">Rain</option>
+                            <option name="mist" value="Mist">Mist</option>
+                            <option name="fog" value="Fog">Fog</option>
+                            <option name="haze" value="Haze">Haze</option>
+                        </select>
+                    </div>
+                </fieldset>
 
-    <!-- Setting up the result view for Forcast-->
-    <section class="searchResults">
-        <table class="pure-table pure-table-bordered weatherTable" data-ng-hide="!searchResults.length">
-            <thead>
-            <tr>
-                <th>City</th>
-                <th>Forecast</th>
-                <th>Temp (min-max)</th>
-                <th>Humidity</th>
-                <th>Wind</th>
-            </tr>
-            </thead>
-            <!-- Printing the results -->
-            <tbody>
-                <tr class="searchResultRow" data-ng-repeat="searchResult in searchResults | weatherFilter:weathertype | orderBy:'name'">
-                    <td>
-                        {{searchResult.name}}
-                        <div class="toggleForecast" data-ng-if="!searchResult.showForecast">
-                            today | <a data-ng-click="getForecast(searchResult, $index)">+14 days</a>
-                        </div>
-                        <div class="toggleForecast" data-ng-if="searchResult.showForecast">
-                            <a data-ng-click="hideForecast(searchResult)">today</a> | +14 days
-                        </div>
-                    </td>
-                    <td data-ng-if="!searchResult.showForecast">
-                        <img data-ng-src="http://openweathermap.org/img/w/{{searchResult.weather[0].icon}}.png"/>
-                        <div>{{searchResult.weather[0].main}}</div>
-                    </td>
-                    <td data-ng-if="!searchResult.showForecast">{{searchResult.main.temp_min | number:0}} - {{searchResult.main.temp_max | number:0}}&deg;</td>
-                    <td data-ng-if="!searchResult.showForecast">{{searchResult.main.humidity | number:0}}%</td>
-                    <td data-ng-if="!searchResult.showForecast">{{searchResult.wind.speed | number:0}}mps</td>
-                    <td data-ng-if="searchResult.showForecast" colspan="100%" class="longForecast" data-ng-if="searchResult.forecast.list!=null">
-                        <table>
-                            <tr>
-                                <td class="dayForecast" data-ng-repeat="aforecast in searchResult.forecast.list">
-                                    <img class="forecastIcon" data-ng-src="http://openweathermap.org/img/w/{{aforecast.weather[0].icon}}.png"/>
-                                    <div class="forecastTemp">{{aforecast.temp.day | number:0}}&deg;</div>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-</div>
-</body>
+                <!-- Setting up the result view for Forcast-->
+                <section class="searchResults">
+                    <table class="pure-table pure-table-bordered weatherTable" data-ng-hide="!searchResults.length">
+                        <thead>
+                        <tr>
+                            <th>City</th>
+                            <th>Forecast</th>
+                            <th>Temp (min-max)</th>
+                            <th>Humidity</th>
+                            <th>Wind</th>
+                        </tr>
+                        </thead>
+                        <!-- Printing the results -->
+                        <tbody>
+                        <tr class="searchResultRow"
+                            data-ng-repeat="searchResult in searchResults | weatherFilter:weathertype | orderBy:'name'">
+                            <td>
+                                {{searchResult.name}}
+                                <div class="toggleForecast" data-ng-if="!searchResult.showForecast">
+                                    today | <a data-ng-click="getForecast(searchResult, $index)">+14 days</a>
+                                </div>
+                                <div class="toggleForecast" data-ng-if="searchResult.showForecast">
+                                    <a data-ng-click="hideForecast(searchResult)">today</a> | +14 days
+                                </div>
+                            </td>
+                            <td data-ng-if="!searchResult.showForecast">
+                                <img data-ng-src="http://openweathermap.org/img/w/{{searchResult.weather[0].icon}}.png"/>
+
+                                <div>{{searchResult.weather[0].main}}</div>
+                            </td>
+                            <td data-ng-if="!searchResult.showForecast">{{searchResult.main.temp_min | number:0}} -
+                                {{searchResult.main.temp_max | number:0}}&deg;</td>
+                            <td data-ng-if="!searchResult.showForecast">{{searchResult.main.humidity | number:0}}%</td>
+                            <td data-ng-if="!searchResult.showForecast">{{searchResult.wind.speed | number:0}}mps</td>
+                            <td data-ng-if="searchResult.showForecast" colspan="100%" class="longForecast"
+                                data-ng-if="searchResult.forecast.list!=null">
+                                <table>
+                                    <tr>
+                                        <td class="dayForecast" data-ng-repeat="aforecast in searchResult.forecast.list">
+                                            <img class="forecastIcon"
+                                                 data-ng-src="http://openweathermap.org/img/w/{{aforecast.weather[0].icon}}.png"/>
+
+                                            <div class="forecastTemp">{{aforecast.temp.day | number:0}}&deg;</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </form>
+        </div>
+    </body>
 </html>
