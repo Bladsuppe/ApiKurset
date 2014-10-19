@@ -31,8 +31,8 @@ weatherApp.controller('weatherController', ['$scope', '$http', function ($scope,
         $scope.loading=false;
         $scope.tempmin = 20;
 
-        $scope.apiBBoxBaseUrl = "http://api.openweathermap.org/data/2.5/box/city?cluster=yes&bbox=";
-        $scope.apiForcastBaseUrl ="http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&cnt=14&id=";
+        $scope.apiBBoxBaseUrl = "http://api.openweathermap.org/data/2.5/box/city?APPID=f8bda4e2ff60d3574aa9fd9e09e8760b&bbox=";
+        $scope.apiForcastBaseUrl ="http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&APPID=f8bda4e2ff60d3574aa9fd9e09e8760b&cnt=14&id=";
         $scope.apiUrl = "";
 
         //Object that stores bounding-box coordinates for locations
