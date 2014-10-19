@@ -49,7 +49,7 @@
                     <!-- Filter to select weather type-->
                     <div class="pure-control-group" data-ng-hide="!searchResults.length">
                         <img src="icons/weathertype.png" alt="Weathertype" class="weatherIcons">
-                        <select required="false" data-ng-model="weathertype" class="inputs" name="weathertype">
+                        <select required="false" data-ng-model="searchQuery.weathertype" class="inputs" name="weathertype">
                             <option value="">Select weather type</option>
                             <option name="clouds" value="Clouds">Clouds</option>
                             <option name="clear" value="Clear">Clear</option>
@@ -65,9 +65,9 @@
                             Min. temp.
                             <img src="icons/Thermometer.png" alt="Thermometer" class="weatherIcons">
                         </label>
-                        <input data-ng-model="tempmin" type="range" class="inputs" id="tempmin"
+                        <input data-ng-model="searchQuery.tempmin" type="range" class="inputs" id="tempmin"
                                name="tempmin" placeholder="Min.Temp" min="-40" max="50" value="20">
-                        <span>{{tempmin}}</span>&deg;C
+                        <span>{{searchQuery.tempmin}}</span>&deg;C
                     </div>
                 </fieldset>
 
@@ -86,7 +86,7 @@
                         <!-- Printing the results -->
                         <tbody>
                         <tr class="searchResultRow"
-                            data-ng-repeat="searchResult in searchResults | weatherFilter:weathertype | tempFilter:tempmin | orderBy:'name'">
+                            data-ng-repeat="searchResult in searchResults | weatherFilter:searchQuery.weathertype | tempFilter:searchQuery.tempmin | orderBy:'name'">
                             <td>
                                 {{searchResult.name}}
                                 <div class="toggleForecast" data-ng-if="!searchResult.showForecast">
